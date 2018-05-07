@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: genius:gui:8.0.2" level="project" />
+    <orderEntry type="library" name="Maven: genius:core:1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.netbeans.external:AbsoluteLayout:RELEASE802" level="project" />
+    <orderEntry type="library" name="Maven: org.jdesktop:appframework:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.jdesktop:swing-worker:1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.netbeans.api:org-jdesktop-layout:RELEASE802" level="project" />
+    <orderEntry type="library" name="Maven: org.netbeans.external:swing-layout-1.0.4:RELEASE802" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.combinatoricslib:combinatoricslib:2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.jfree:jfreechart:1.0.17" level="project" />
+    <orderEntry type="library" name="Maven: org.jfree:jcommon:1.0.21" level="project" />
+    <orderEntry type="library" name="Maven: xml-apis:xml-apis:1.3.04" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.jopt-simple:jopt-simple:3.2" level="project" />
+    <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.2.11" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-core:2.2.11" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.11" level="project" />
+    <orderEntry type="library" name="Maven: genius:agents:1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: genius:domains:1.0.1" level="project" />
+  </component>
+  <component name="POM File Configuration" pomFile="" />
+</module>
