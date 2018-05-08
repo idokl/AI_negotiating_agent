@@ -1,0 +1,7 @@
+<?xml version="1.0" ?><Session>
+<NegotiationOutcome currentTime="Mon May 07 22:10:41 IDT 2018" timeOfAgreement="0.4972375690607735" lastAction="(Accept  bid:Bid[Pie: a498, ])" domain="etc/templates/pie/pie_domain.xml" bids="179" runtime="7.934091983" finalOutcome="Bid[Pie: a498, ]" startingAgent="-" deadline="180rounds">
+<resultsOfAgent agent="FullAgent@0" agentDesc="Agent FullAgent" utilspace="etc/templates/pie/pie_A.xml" agentClass="lgsmi_agent.FullAgent" finalUtility="0.498" discountedUtility="0.498" discount="1.0">
+</resultsOfAgent>
+<resultsOfAgent agent="FullAgent@1" agentDesc="Agent FullAgent" utilspace="etc/templates/pie/pie_B.xml" agentClass="lgsmi_agent.FullAgent" finalUtility="0.502" discountedUtility="0.502" discount="1.0">
+</resultsOfAgent>
+</NegotiationOutcome></Session>
