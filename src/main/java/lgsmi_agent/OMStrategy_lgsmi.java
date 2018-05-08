@@ -1,10 +1,8 @@
-package boaexample;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+package lgsmi_agent;
+
+import java.util.*;
+
 
 import negotiator.bidding.BidDetails;
 import negotiator.boaframework.BOAparameter;
@@ -18,13 +16,18 @@ import negotiator.boaframework.OpponentModel;
  * used to select the best bid.
  * 
  */
-public class BestBid extends OMStrategy {
+
+public class OMStrategy_lgsmi extends OMStrategy {
+
 
 	/**
 	 * when to stop updating the opponentmodel. Note that this value is not
 	 * exactly one as a match sometimes lasts slightly longer.
 	 */
-	double updateThreshold = 1.1;
+
+
+	private double updateThreshold = 1.1;
+
 
 	/**
 	 * Initializes the opponent model strategy. If a value for the parameter t
@@ -43,7 +46,9 @@ public class BestBid extends OMStrategy {
 	public void init(NegotiationSession negotiationSession, OpponentModel model, Map<String, Double> parameters) {
 		super.init(negotiationSession, model, parameters);
 		if (parameters.get("t") != null) {
-			updateThreshold = parameters.get("t").doubleValue();
+
+			updateThreshold = parameters.get("t");
+
 		} else {
 			System.out.println("OMStrategy assumed t = 1.1");
 		}
@@ -53,7 +58,7 @@ public class BestBid extends OMStrategy {
 	 * Returns the best bid for the opponent given a set of similarly preferred
 	 * bids.
 	 * 
-	 * @param list
+	 * @param allBids
 	 *            of the bids considered for offering.
 	 * @return bid to be offered to opponent.
 	 */
@@ -108,8 +113,17 @@ public class BestBid extends OMStrategy {
 		return set;
 	}
 
+
+    public Map<String, Double> getParameters() {
+        Map<String, Double> map = new HashMap<String, Double>();
+        //Time after which the OM should not be updated
+        map.put("t", 1.1);
+        return map;
+    }
+
 	@Override
 	public String getName() {
-		return "BestBid example";
+		return "OMStrategy_lgsmi";
+
 	}
 }

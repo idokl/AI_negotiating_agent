@@ -1,10 +1,15 @@
-package boaexample;
+
+package lgsmi_agent;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+
+import com.sun.xml.internal.bind.api.impl.NameConverter;
+import flanagan.math.Matrix;
 
 import negotiator.Bid;
 import negotiator.bidding.BidDetails;
@@ -15,6 +20,11 @@ import negotiator.issue.Issue;
 import negotiator.issue.IssueDiscrete;
 import negotiator.issue.Objective;
 import negotiator.issue.ValueDiscrete;
+
+
+import negotiator.persistent.DefaultStandardInfo;
+import negotiator.persistent.StandardInfo;
+
 import negotiator.utility.AdditiveUtilitySpace;
 import negotiator.utility.Evaluator;
 import negotiator.utility.EvaluatorDiscrete;
@@ -34,16 +44,22 @@ import negotiator.utility.EvaluatorDiscrete;
  * Jonker. Decoupling Negotiating Agents to Explore the Space of Negotiation
  * Strategies
  * 
+ * 
  */
-public class HardHeadedFrequencyModel extends OpponentModel {
+public class OpponentModel_lgsmi extends OpponentModel {
+
 
 	// the learning coefficient is the weight that is added each turn to the
 	// issue weights
 	// which changed. It's a trade-off between concession speed and accuracy.
+
+    /*********** can be reduced over time for giving less importance to later bids *******/
 	private double learnCoef;
 	// value which is added to a value if it is found. Determines how fast
 	// the value weights converge.
-	private int learnValueAddition;
+    /*********************** can be reduced over time for giving less importance to later bids  *********************/
+    private int learnValueAddition;
+
 	private int amountOfIssues;
 
 	/**
@@ -89,9 +105,9 @@ public class HardHeadedFrequencyModel extends OpponentModel {
 	 * if the value changed. If this is the case, a 1 is stored in a hashmap for
 	 * that issue, else a 0.
 	 * 
-	 * @param a
+	 * @param first
 	 *            bid of the opponent
-	 * @param another
+	 * @param second
 	 *            bid
 	 * @return
 	 */
@@ -135,7 +151,9 @@ public class HardHeadedFrequencyModel extends OpponentModel {
 		// normalization.
 		// Also the value that is taken as the minimum possible weight,
 		// (therefore defining the maximum possible also).
-		double goldenValue = learnCoef / (double) amountOfIssues;
+
+        // the proportion given to last bid
+	double goldenValue = learnCoef / (double) amountOfIssues;
 		// The total sum of weights before normalization.
 		double totalSum = 1D + goldenValue * (double) numberOfUnchanged;
 		// The maximum possible weight
@@ -143,22 +161,29 @@ public class HardHeadedFrequencyModel extends OpponentModel {
 
 		// re-weighing issues while making sure that the sum remains 1
 		for (Integer i : lastDiffSet.keySet()) {
+
+		    //if issue's value unchanged and the weight of the issue is smaller then maximumWeight
 			if (lastDiffSet.get(i) == 0 && opponentUtilitySpace.getWeight(i) < maximumWeight)
+			    //if the new weight is legal, set the weight for this issue
 				opponentUtilitySpace.setWeight(opponentUtilitySpace.getDomain().getObjectives().get(i),
 						(opponentUtilitySpace.getWeight(i) + goldenValue) / totalSum);
 			else
-				opponentUtilitySpace.setWeight(opponentUtilitySpace.getDomain().getObjectives().get(i),
+			    // the assumption is that values that have been changed are values that the
+                // opponent is willing to compromise on them, so we reduce their weight
+                opponentUtilitySpace.setWeight(opponentUtilitySpace.getDomain().getObjectives().get(i),
 						opponentUtilitySpace.getWeight(i) / totalSum);
 		}
 
-		// Then for each issue value that has been offered last time, a constant
+		// Then for each issue's value that has been offered last time, a constant
+
 		// value is added to its corresponding ValueDiscrete.
 		try {
 			for (Entry<Objective, Evaluator> e : opponentUtilitySpace.getEvaluators()) {
 				// cast issue to discrete and retrieve value. Next, add constant
 				// learnValueAddition to the current preference of the value to
-				// make
-				// it more important
+
+				// make it more important
+
 				((EvaluatorDiscrete) e.getValue()).setEvaluation(
 						oppBid.getBid().getValue(((IssueDiscrete) e.getKey()).getNumber()),
 						(learnValueAddition + ((EvaluatorDiscrete) e.getValue()).getEvaluationNotNormalized(
@@ -182,7 +207,9 @@ public class HardHeadedFrequencyModel extends OpponentModel {
 
 	@Override
 	public String getName() {
-		return "HardHeaded Frequency Model example";
+
+		return "OpponentModel_lgsmi";
+
 	}
 
 	@Override
@@ -192,4 +219,13 @@ public class HardHeadedFrequencyModel extends OpponentModel {
 				"The learning coefficient determines how quickly the issue weights are learned"));
 		return set;
 	}
+
+
+    public Map<String, Double> getParameters() {
+        Map<String, Double> map = new HashMap<String, Double>();
+        //The learning coefficient determines how quickly the issue weights are learned
+        map.put("l", 0.2);
+        return map;
+    }
+
 }

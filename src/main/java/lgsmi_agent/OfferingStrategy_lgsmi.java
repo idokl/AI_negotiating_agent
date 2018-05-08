@@ -1,4 +1,7 @@
-package boaexample;
+
+package lgsmi_agent;
+
+import java.util.HashMap;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -25,7 +28,9 @@ import negotiator.boaframework.SortedOutcomeSpace;
  * loading the domain may take some time, which may lead to the agent skipping
  * the first bid. A better implementation is GeniusTimeDependent_Offering.
  */
-public class TimeDependent_Offering extends OfferingStrategy {
+
+public class OfferingStrategy_lgsmi extends OfferingStrategy {
+
 
 	/**
 	 * k in [0, 1]. For k = 0 the agent starts with a bid of maximum utility
@@ -156,8 +161,23 @@ public class TimeDependent_Offering extends OfferingStrategy {
 		return set;
 	}
 
+
+    public Map<String, Double> getParameters() {
+        Map<String, Double> map = new HashMap<String, Double>();
+        //Concession rate
+        map.put("e", 1.0);
+        //Offset
+        map.put("k", 0.0);
+        //Minimum utility
+        map.put( "min", 0.0);
+        //Maximum utility
+        map.put("max", 0.99);
+        return map;
+    }
+
 	@Override
 	public String getName() {
-		return "TimeDependent Offering example";
+		return "OfferingStrategy_lgsmi";
+
 	}
 }

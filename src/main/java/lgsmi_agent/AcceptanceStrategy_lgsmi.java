@@ -1,5 +1,7 @@
-package boaexample;
 
+package lgsmi_agent;
+
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -19,7 +21,9 @@ import negotiator.boaframework.OpponentModel;
  * T. Baarslag, K. Hindriks, M. Hendrikx, A. Dirkzwager, C.M. Jonker
  * 
  */
-public class AC_Next extends AcceptanceStrategy {
+
+public class AcceptanceStrategy_lgsmi extends AcceptanceStrategy {
+
 
 	private double a;
 	private double b;
@@ -27,15 +31,17 @@ public class AC_Next extends AcceptanceStrategy {
 	/**
 	 * Empty constructor for the BOA framework.
 	 */
-	public AC_Next() {
+
+	public AcceptanceStrategy_lgsmi() {
 	}
 
-	public AC_Next(NegotiationSession negoSession, OfferingStrategy strat, double alpha, double beta) {
-		this.negotiationSession = negoSession;
-		this.offeringStrategy = strat;
-		this.a = alpha;
-		this.b = beta;
-	}
+//	public AcceptanceStrategy_lgsmi(NegotiationSession negoSession, OfferingStrategy strat, double alpha, double beta) //{
+//		this.negotiationSession = negoSession;
+//		this.offeringStrategy = strat;
+//		this.a = alpha;
+//		this.b = beta;
+//	}
+
 
 	@Override
 	public void init(NegotiationSession negoSession, OfferingStrategy strat, OpponentModel opponentModel,
@@ -71,7 +77,8 @@ public class AC_Next extends AcceptanceStrategy {
 	}
 
 	@Override
-	public Set<BOAparameter> getParameterSpec() {
+
+	public Set<BOAparameter> getParameterSpec(){
 
 		Set<BOAparameter> set = new HashSet<BOAparameter>();
 		set.add(new BOAparameter("a", 1.0,
@@ -79,11 +86,23 @@ public class AC_Next extends AcceptanceStrategy {
 		set.add(new BOAparameter("b", 0.0,
 				"Accept when the opponent's utility * a + b is greater than the utility of our current bid"));
 
+
 		return set;
 	}
 
+
+
+    public Map<String, Double> getParameters() {
+        Map<String, Double> map = new HashMap<String, Double>();
+        //Accept when the opponent's utility * a + b is greater than the utility of our current bid
+        map.put("a", 1.0);
+        map.put("b", 0.0);
+        return map;
+    }
+
 	@Override
 	public String getName() {
-		return "AC_Next example";
+		return "AcceptanceStrategy_lgsmi";
+
 	}
 }
