@@ -44,7 +44,14 @@ public class OfferingStrategy_lgsmi extends OfferingStrategy {
 	private double e;
 	/** Outcome space */
 	private SortedOutcomeSpace outcomespace;
+	
+	private BidsManager bidsManager;
 
+	public OfferingStrategy_lgsmi(BidsManager bidsManager) {
+		super();
+		this.bidsManager = bidsManager;
+	}
+	
 	/**
 	 * Method which initializes the agent by setting all parameters. The
 	 * parameter "e" is the only parameter which is required.

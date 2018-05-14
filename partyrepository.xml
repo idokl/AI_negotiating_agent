@@ -363,13 +363,7 @@
             <partyRepItem classPath="negotiator.parties.FeedbackHillClimber">
                 <properties/>
             </partyRepItem>
-            <partyRepItem classPath="/home/shachar-s/Dropbox/AIagent/lgsmi/target/classes/lgsmi_agent/FullAgent.class">
-                <properties/>
-            </partyRepItem>
-            <partyRepItem classPath="C:\Users\lchaghbi\Documents\lital\competition\lgsmi\target\classes\lgsmi_agent\FullAgent.class">
-                <properties/>
-            </partyRepItem>
-            <partyRepItem classPath="C:\Users\lchaghbi\Documents\lital\competition\lgsmi\target\classes\lgsmi_agent\FullAgent.class">
+            <partyRepItem classPath="C:\Users\IDO1\git\LGSMI_Agent\target\classes\lgsmi_agent\FullAgent.class">
                 <properties/>
             </partyRepItem>
         </partyRepItems>
