@@ -45,54 +45,16 @@ public class FullAgent extends BOAagent {
     }
 
     
-//	/**
-//	 * Chooses an action to perform.
-//	 * 
-//	 * @return Action the agent performs
-//	 */
-//	@Override
-//	public Action chooseAction() {
-//
-//		BidDetails bid;
-//
-//		// if our history is empty, then make an opening bid
-//		if (negotiationSession.getOwnBidHistory().getHistory().isEmpty()) {
-//			bid = offeringStrategy.determineOpeningBid();
-//		} else {
-//			// else make a normal bid
-//			bid = offeringStrategy.determineNextBid();
-//			if (offeringStrategy.isEndNegotiation()) {
-//				return new EndNegotiation(getAgentID());
-//			}
-//		}
-//
-//		// if the offering strategy made a mistake and didn't set a bid: accept
-//		if (bid == null) {
-//			System.out.println("Error in code, null bid was given");
-//			return new Accept(getAgentID(), oppBid);
-//		} else {
-//			offeringStrategy.setNextBid(bid);
-//		}
-//
-//		// check if the opponent bid should be accepted
-//		Actions decision = Actions.Reject;
-//		if (!negotiationSession.getOpponentBidHistory().getHistory().isEmpty()) {
-//			decision = acceptConditions.determineAcceptability();
-//		}
-//
-//		// check if the agent decided to break off the negotiation
-//		if (decision.equals(Actions.Break)) {
-//			System.out.println("send EndNegotiation");
-//			return new EndNegotiation(getAgentID());
-//		}
-//		// if agent does not accept, it offers the counter bid
-//		if (decision.equals(Actions.Reject)) {
-//			negotiationSession.getOwnBidHistory().add(bid);
-//			return new Offer(getAgentID(), bid.getBid());
-//		} else {
-//			return new Accept(getAgentID(), oppBid);
-//		}
-//	}
+	/**
+	 * Chooses an action to perform.
+	 * 
+	 * @return Action the agent performs
+	 */
+	@Override
+	public Action chooseAction() {
+		this.bidsManager.ourTurnHasArrived();
+		return super.chooseAction();
+	}
     
 	/**
 	 * Stores the actions made by a partner. First, it stores the bid in the
@@ -103,7 +65,7 @@ public class FullAgent extends BOAagent {
 	 */
     @Override
 	public void ReceiveMessage(Action opponentAction) {
-    	super.ReceiveMessage(opponentAction);
+    	super.ReceiveMessage(opponentAction); 
     	// 1. if the opponent made a bid
 		if (opponentAction instanceof Offer) {
 			Bid oppBid = ((Offer) opponentAction).getBid();

@@ -14,7 +14,9 @@ import negotiator.boaframework.NoModel;
 import negotiator.boaframework.OMStrategy;
 import negotiator.boaframework.OfferingStrategy;
 import negotiator.boaframework.OpponentModel;
+import negotiator.boaframework.SessionData;
 import negotiator.boaframework.SortedOutcomeSpace;
+import negotiator.timeline.TimeLineInfo;
 
 /**
  * This is an abstract class used to implement a TimeDependentAgent Strategy
@@ -118,6 +120,16 @@ public class OfferingStrategy_lgsmi extends OfferingStrategy {
 			nextBid = negotiationSession.getOutcomeSpace().getBidNearUtility(utilityGoal);
 		} else {
 			nextBid = omStrategy.getBid(outcomespace, utilityGoal);
+		}
+		//
+		boolean almostEndOfTime = bidsManager.isTheEndOfTimeArriving();
+		double minimalThreshold = 0.25;
+		if (almostEndOfTime) {
+			if (bidsManager.getUtilityOfMaximalBidThatWasAccepted() >= minimalThreshold) {
+				nextBid = new BidDetails(bidsManager.getMaximalBidThatWasAccepted(), bidsManager.getUtilityOfMaximalBidThatWasAccepted()) ;				
+			} else if (bidsManager.getUtilityOfMaximalOppBid() >= minimalThreshold) {
+				nextBid = new BidDetails(bidsManager.getMaximalOppBid(), bidsManager.getUtilityOfMaximalOppBid()) ;
+			}
 		}
 		return nextBid;
 	}
