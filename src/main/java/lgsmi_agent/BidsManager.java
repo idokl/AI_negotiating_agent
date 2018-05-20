@@ -15,6 +15,9 @@ public class BidsManager {
 	// the best bid that one of the opponent has bidden in the past and the second opponent has accepted 
 	private Bid maximalBidThatWasAccepted = null;
 	private double utilityOfMaximalBidThatWasAccepted = 0;
+	
+	//the last bid that any opponent has bidden
+	private Bid lastOpponentBid = null;
 
 	//time-based protocol or rounds-based protocol
 	private Timeline.Type typeOfTimeLine = null;
@@ -46,6 +49,7 @@ public class BidsManager {
 	
 	public void reportNewBid(Bid oppBid) {
 		//get our undiscounted utility that corresponds to this bid
+		this.lastOpponentBid = oppBid;
 		double utility = negotiationSession.getUtilitySpace().getUtility(oppBid);
 		if (utility > this.utilityOfMaximalOppBid) {
 			this.maximalOppBid = oppBid;
@@ -54,6 +58,10 @@ public class BidsManager {
 	}
 	
 	public void reportAcceptanceOfBid(Bid oppBid) {
+		//if oppBid has bidden by our agent (and not by an opponent) - ignore (i.e. don't save it)
+		if (!oppBid.equals(lastOpponentBid)) {
+			return;
+		}
 		//get our undiscounted utility that corresponds to this bid
 		double utility = negotiationSession.getUtilitySpace().getUtility(oppBid);
 		if (utility > this.utilityOfMaximalBidThatWasAccepted) {
